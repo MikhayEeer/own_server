@@ -1,4 +1,17 @@
 
+## quick start
+```bash
+mkdir build
+cd build
+
+cmake ..
+make
+```
+Run project
+```bash
+./OwnServer
+```
+
 ## Requirements
 Ubuntu 22.04.3 LTS
 
@@ -13,3 +26,7 @@ boost
 dpkg -l | grep boost
 ```
 version: `1.74.0-14ubuntu3`
+
+## Something learned
+- 模板函数需要在头文件完成实现，编译器需要在使用模板的地方生成具体代码
+- const成员函数不能返回非const的引用

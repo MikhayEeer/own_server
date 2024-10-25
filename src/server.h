@@ -3,17 +3,21 @@
 
 #include <boost/asio.hpp>
 #include <thread>
+#include <memory>
 
 #include "request_handler.h"
 #include "thread_pool.h"
+#include "connection.h"
+
+typedef unsigned short un_short;
 
 class Server{
 public:
-    Server(u_short port);
+    Server(un_short port);
     void start();
-    void accept_connection();
 private:
-    typedef unsigned short u_short;
+    void accept_connection();
+    void handle_accept(std::shared_ptr<Connection> connection, const boost::system::error_code& error);
 
     boost::asio::io_context io_context_;  // 异步操作核心
     boost::asio::ip::tcp::acceptor acceptor_;

@@ -1,13 +1,13 @@
 #include "thread_pool.h"
 #include <iostream>
 
-ThreadPool::ThreadPool(size_t threads) : done_(false){
-    for(size_t i=0; i<threads;i++){
-        workers_.emplace_back([this]{
-            while(true) {
+ThreadPool::ThreadPool(size_t threads) : done_(false) {
+    for (size_t i = 0; i < threads; ++i) {
+        workers_.emplace_back([this] {
+            while (true) {
                 std::function<void()> task;
-                {
 
+                {
                     std::unique_lock<std::mutex> lock(this->queue_mutex_);
                     this->condition_.wait(lock, [this] { return this->done_ || !this->tasks_.empty(); });
 
@@ -17,40 +17,16 @@ ThreadPool::ThreadPool(size_t threads) : done_(false){
 
                     task = std::move(this->tasks_.front());
                     this->tasks_.pop();
-
                 }
 
                 task();
             }
-        } );
+        });
     }
 }
 
 ThreadPool::~ThreadPool() {
     stop();
-}
-
-template<class F, class... Args>
-auto ThreadPool::enqueue(F&& f, Args&&... args) -> std::future<typename std::result_of<F(Args...)>::type> {
-    using return_type = typename std::result_of<F(Args...)>::type;
-
-    auto task = std::make_shared<std::packaged_task<return_type()>>(
-        std::bind(std::forward<F>(f), std::forward<Args>(args)...)
-    );
-
-    std::future<return_type> res = task->get_future();
-    {
-        std::unique_lock<std::mutex> lock(queue_mutex_);
-
-        if (done_) {
-            throw std::runtime_error("enqueue on stopped ThreadPool");
-        }
-
-        tasks_.emplace([task]() { (*task)(); });
-    }
-    condition_.notify_one();
-
-    return res;
 }
 
 void ThreadPool::start() {
