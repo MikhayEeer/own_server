@@ -3,6 +3,8 @@
 */
 #include "request_handler.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 void RequestHandler::handle_request(const std::string& request, boost::asio::ip::tcp::socket& socket) {
     std::cout << "Request received : " << request << std::endl;
