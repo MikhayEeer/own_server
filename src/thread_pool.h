@@ -1,3 +1,6 @@
+/*
+管理线程池，分配任务给线程
+*/
 #ifndef OWN_SERVER_THREAD_POOL_H
 #define OWN_SERVER_THREAD_POOL_H
 

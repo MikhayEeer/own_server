@@ -1,3 +1,6 @@
+/*
+处理 http请求并生成响应
+*/
 #include "request_handler.h"
 #include <iostream>
 

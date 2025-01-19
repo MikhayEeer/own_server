@@ -1,3 +1,6 @@
+/*
+负责处理单个客户端的连接，读取请求并调用请求处理器生成响应
+*/
 #ifndef OWN_SERVER_CONNECTION_H
 #define OWN_SERVER_CONNECTION_H
 

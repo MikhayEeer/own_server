@@ -1,3 +1,6 @@
+/*
+处理 http请求并生成响应
+*/
 #ifndef OWN_SERVER_REQUEST_HANDLER_H
 #define OWN_SERVER_REQUEST_HANDLER_H
 

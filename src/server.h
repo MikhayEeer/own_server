@@ -1,3 +1,7 @@
+/*
+管理服务器的生命周期
+包括监听端口 接受连接 启动线程池
+*/
 #ifndef OWN_SERVER_SERVER_H
 #define OWN_SERVER_SERVER_H
 

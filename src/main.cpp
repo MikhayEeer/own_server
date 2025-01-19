@@ -1,3 +1,9 @@
+/*
+入口
+
+创建server对象，传入端口号
+*/
+
 #include <iostream>
 
 #include "server.h"

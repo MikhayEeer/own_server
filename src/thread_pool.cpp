@@ -1,3 +1,6 @@
+/*
+管理线程池，分配任务给线程
+*/
 #include "thread_pool.h"
 #include <iostream>
 
