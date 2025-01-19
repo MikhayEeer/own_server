@@ -22,6 +22,9 @@ add_executable(OwnServer
     src/connection.cpp
 )
 
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/frontend/index.html
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/frontend)
+
 target_link_libraries(OwnServer 
     ${Boost_LIBRARIES}
     Threads::Threads
