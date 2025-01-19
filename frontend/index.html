@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>我的Web服务器</title>
+    <title>Mikhay-WebServer</title>
     <meta charset="utf-8">
     <style>
         body {
@@ -87,12 +87,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>欢迎来到我的Web服务器</h1>
+        <h1>欢迎来到Mikhay-WebServer</h1>
         <p>这是一个基于C++和Boost.Asio构建的简单Web服务器。通过下面的表单，您可以发送消息给服务器。</p>
-        
+        <p>Server将会用于AI Agent筛选论文，你可以在空白框里填写你希望关注的关键字</p>
         <form id="messageForm" onsubmit="sendMessage(event)">
             <input type="text" id="message" name="message" placeholder="请输入您想发送的消息...">
-            <button type="submit">发送消息</button>
+            <button type="submit">确认</button>
         </form>
         <div id="response"></div>
     </div>
