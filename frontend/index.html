@@ -5,30 +5,103 @@
     <meta charset="utf-8">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px auto;
-            max-width: 800px;
-            padding: 0 20px;
-        }
-        h1 {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            width: 80%;
+            max-width: 800px;
             text-align: center;
+        }
+
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
         }
     </style>
 </head>
 <body>
-    <h1>欢迎来到我的Web服务器</h1>
-    <p>这是一个基于C++和Boost.Asio构建的简单Web服务器。</p>
-    <form id="messageForm" onsubmit="sendMessage(event)">
-        <input type="text" id="message" name="message" placeholder="请输入消息">
-        <button type="submit">发送</button>
-    </form>
-    <div id="response"></div>
+    <div class="container">
+        <h1>欢迎来到我的Web服务器</h1>
+        <p>这是一个基于C++和Boost.Asio构建的简单Web服务器。通过下面的表单，您可以发送消息给服务器。</p>
+        
+        <form id="messageForm" onsubmit="sendMessage(event)">
+            <input type="text" id="message" name="message" placeholder="请输入您想发送的消息...">
+            <button type="submit">发送消息</button>
+        </form>
+        <div id="response"></div>
+    </div>
 
     <script>
         async function sendMessage(event) {
             event.preventDefault();
             const message = document.getElementById('message').value;
+            const responseDiv = document.getElementById('response');
             
             try {
                 const response = await fetch('http://localhost:8080/submit', {
@@ -40,12 +113,14 @@
                 });
                 
                 const result = await response.text();
-                document.getElementById('response').textContent = '服务器响应: ' + result;
+                responseDiv.innerHTML = '服务器响应: ' + result;
+                responseDiv.style.animation = 'fadeIn 0.5s';
             } catch (error) {
                 console.error('Error:', error);
+                responseDiv.innerHTML = '发送失败: ' + error.message;
+                responseDiv.style.color = '#ff4444';
             }
         }
     </script>
-
 </body>
 </html>
