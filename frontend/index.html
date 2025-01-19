@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的Web服务器</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎来到我的Web服务器</h1>
+    <p>这是一个基于C++和Boost.Asio构建的简单Web服务器。</p>
+    <form id="messageForm" onsubmit="sendMessage(event)">
+        <input type="text" id="message" name="message" placeholder="请输入消息">
+        <button type="submit">发送</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        async function sendMessage(event) {
+            event.preventDefault();
+            const message = document.getElementById('message').value;
+            
+            try {
+                const response = await fetch('http://localhost:8080/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'message=' + encodeURIComponent(message)
+                });
+                
+                const result = await response.text();
+                document.getElementById('response').textContent = '服务器响应: ' + result;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+
+</body>
+</html>
